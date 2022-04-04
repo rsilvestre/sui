@@ -1,7 +1,19 @@
 // Copyright (c) 2021, Facebook, Inc. and its affiliates
 // Copyright (c) 2022, Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
+
 use std::collections::{HashMap, HashSet};
+
+use crate::crypto::PublicKeyBytes;
+use crate::error::SuiError;
+use ed25519_dalek::Digest;
+
+use hex::FromHex;
+use rand::Rng;
+use serde::{de::Error as _, Deserialize, Serialize};
+use std::borrow::Borrow;
+use std::collections::HashSet;
+
 use std::convert::{TryFrom, TryInto};
 use std::fmt;
 
@@ -259,6 +271,18 @@ pub fn context_from_digest(digest: TransactionDigest) -> Context {
     // carrier.insert("tx_digest".to_string(), hex::encode(digest.0));
 
     global::get_text_map_propagator(|propagator| propagator.extract(&carrier))
+}
+
+impl Borrow<[u8]> for TransactionDigest {
+    fn borrow(&self) -> &[u8] {
+        &self.0
+    }
+}
+
+impl Borrow<[u8]> for &TransactionDigest {
+    fn borrow(&self) -> &[u8] {
+        &self.0
+    }
 }
 
 impl ObjectDigest {
