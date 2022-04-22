@@ -1131,7 +1131,7 @@ async fn test_authority_persist() {
         /* address */ *authority_key.public_key_bytes(),
         /* voting right */ 1,
     );
-    let committee = Committee::new(authorities);
+    let committee = Committee::new(0, authorities);
 
     // Create a random directory to store the DB
     let dir = env::temp_dir();
@@ -1194,7 +1194,7 @@ fn init_state_parameters() -> (Committee, SuiAddress, KeyPair, Arc<AuthorityStor
         /* address */ *authority_key.public_key_bytes(),
         /* voting right */ 1,
     );
-    let committee = Committee::new(authorities);
+    let committee = Committee::new(0, authorities);
 
     // Create a random directory to store the DB
 

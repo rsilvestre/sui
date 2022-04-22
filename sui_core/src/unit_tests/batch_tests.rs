@@ -33,7 +33,7 @@ fn init_state_parameters() -> (Committee, SuiAddress, KeyPair) {
         /* address */ *authority_key.public_key_bytes(),
         /* voting right */ 1,
     );
-    let committee = Committee::new(authorities);
+    let committee = Committee::new(0, authorities);
 
     (committee, authority_address, authority_key)
 }
@@ -637,7 +637,7 @@ async fn test_safe_batch_stream() {
     println!("init public key {:?}", public_key_bytes);
 
     authorities.insert(public_key_bytes, 1);
-    let committee = Committee::new(authorities);
+    let committee = Committee::new(0, authorities);
     // Create an authority
     let mut opts = rocksdb::Options::default();
     opts.set_max_open_files(max_files_authority_tests());

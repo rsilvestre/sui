@@ -283,7 +283,7 @@ impl TransactionCreator {
             let name = *key_pair.public_key_bytes();
             keys.push((name, key_pair));
         }
-        let committee = Committee::new(keys.iter().map(|(k, _)| (*k, 1)).collect());
+        let committee = Committee::new(0, keys.iter().map(|(k, _)| (*k, 1)).collect());
 
         // Pick an authority and create state.
         let (public_auth0, secret_auth0) = keys.pop().unwrap();
